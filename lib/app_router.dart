@@ -103,11 +103,11 @@ class AppRouter extends ConsumerWidget {
   Widget build(BuildContext context, ref) {
     final router = ref.watch(goRouterProvider);
     return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'Inspecciones',
-      theme: ref.watch(themeProvider),
-      routeInformationParser: router.routeInformationParser,
-      routerDelegate: router.routerDelegate,
-    );
+        debugShowCheckedModeBanner: false,
+        title: 'Inspecciones',
+        theme: ref.watch(themeProvider),
+        routeInformationParser: router.routeInformationParser,
+        routerDelegate: router.routerDelegate,
+        routeInformationProvider: router.routeInformationProvider);
   }
 }
