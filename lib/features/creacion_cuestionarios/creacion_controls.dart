@@ -299,7 +299,7 @@ class CreadorCriticidadesNumericasController {
     }, [
       /// Que el valor mínimo sea menor que el introducido en máximo
       //TODO: validación para que no se entrecrucen los rangos
-      verificarRango(controlMinimo: minimoControl, controlMaximo: maximoControl)
+      VerificarRango(minimoControl, maximoControl)
     ]);
   }
 
@@ -606,7 +606,8 @@ class CamposGeneralesPreguntaController {
   late final criticidadControl =
       fb.control<double>(criticidadInicial.valueOrDefault(0).toDouble());
 
-  final Value<List<AppImage>> fotosGuiaIniciales;
+  final Value<List<AppImage>?> fotosGuiaIniciales;
+
   late final fotosGuiaControl = fb.control<List<AppImage>>(
     fotosGuiaIniciales.valueOrDefault([]).toList(),
   );

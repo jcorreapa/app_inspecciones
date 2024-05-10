@@ -12,6 +12,7 @@ import 'package:inspecciones/presentation/widgets/alertas.dart';
 import 'package:inspecciones/presentation/widgets/user_drawer.dart';
 
 import 'edicion_form_page.dart';
+import 'lista_cuestionarios_page.dart';
 
 final cuestionariosServidorProvider = FutureProvider.autoDispose((ref) =>
     ref.watch(cuestionariosRepositoryProvider).getListaDeCuestionariosServer());
@@ -149,7 +150,7 @@ class CuestionariosPage extends ConsumerWidget {
             case AccionCuestionario.previsualizar:
               context.goNamed(
                 'inspeccion',
-                params: {
+                pathParameters: {
                   "activoid": "previsualizacion",
                   "cuestionarioid": cuestionario.id,
                 },
@@ -270,8 +271,6 @@ enum AccionCuestionario {
   nuevaVersion,
   eliminar,
 }
-
-
 
 final _cuestionarioListViewModelProvider = Provider((ref) =>
     _CuestionarioListViewModel(ref.watch(cuestionariosRepositoryProvider)));

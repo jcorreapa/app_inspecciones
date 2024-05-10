@@ -10,7 +10,7 @@ class ReactiveTextFieldTags
     Key? key,
     InputDecoration decoration = const InputDecoration(),
     required FormControl<Set<Etiqueta>> formControl,
-    ValidationMessagesFunction<Set<Etiqueta>>? validationMessages,
+    Map<String, String Function(Object)>? validationMessages,
     required AutocompleteOptionsBuilder<Etiqueta> optionsBuilder,
     VoidCallback? onMenu,
   }) : super(
@@ -36,7 +36,6 @@ class ReactiveTextFieldTags
                 onDelete: (tag) =>
                     field.didChange(Set.from(field.value!..remove(tag))),
                 optionsBuilder: optionsBuilder,
-                
               ),
             );
           },

@@ -14,17 +14,16 @@ import '../core/typedefs.dart';
 import '../repositories/providers.dart';
 
 //TODO: implementar el dispose
-final djangoJsonApiClientProvider =
-    Provider((ref) => DjangoJsonApiClient(ref.read));
+final djangoJsonApiClientProvider = Provider((ref) => DjangoJsonApiClient(ref));
 
 class DjangoJsonApiClient {
-  final Reader _read;
-  String? get _token => _read(appRepositoryProvider).getToken();
-  AuthService get _authService => _read(authProvider.notifier);
+  final Ref _ref;
+  String? get _token => _ref.read(appRepositoryProvider).getToken();
+  AuthService get _authService => _ref.read(authProvider.notifier);
 
   final http.Client _inner;
 
-  DjangoJsonApiClient(this._read, [http.Client? inner])
+  DjangoJsonApiClient(this._ref, [http.Client? inner])
       : _inner = inner ?? http.Client();
 
   Future<T> request<T>(String method, Uri url,

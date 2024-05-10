@@ -23,8 +23,8 @@ class WidgetPreguntaNumerica extends StatelessWidget {
           FilteringTextInputFormatter.allow(RegExp(r'[0-9\.\-]'))
         ],
         valueAccessor: MyDoubleValueAccessor(),
-        validationMessages: (control) => {
-          ValidationMessage.number: 'Debe ser un número válido',
+        validationMessages: {
+          ValidationMessage.number: (control) => 'Debe ser un número válido',
         },
         decoration: InputDecoration(
             labelText: "valor", suffix: Text(controlador.pregunta.unidades)),

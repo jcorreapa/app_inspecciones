@@ -87,8 +87,9 @@ class CamposGenerales extends StatelessWidget {
       children: [
         ReactiveTextField(
           formControl: controller.tituloControl,
-          validationMessages: (control) =>
-              {ValidationMessage.required: 'El titulo no debe estar vacío'},
+          validationMessages: {
+            ValidationMessage.required: (_) => 'El titulo no debe estar vacío'
+          },
           decoration: const InputDecoration(
             labelText: 'Título',
           ),

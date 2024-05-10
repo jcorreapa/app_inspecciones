@@ -51,8 +51,9 @@ abstract class ControladorDePregunta<P extends Pregunta,
     "fotosBase": fotosBaseControl,
     "fotosReparacion": fotosReparacionControl,
   }, [
+    //TODO: revisar
     // Aunque un control sea inválido, el grupo es válido. Se valida el grupo entero.
-    ReparadoValidator().validate
+    ReparadoValidator()
   ]);
 
   /// el control de reactive forms que debe contener directa o indirectamente

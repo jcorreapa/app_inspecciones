@@ -8,11 +8,11 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>((ref) =>
             ref.watch(localPreferencesDataSourceProvider).getTema() ?? true
                 ? Brightness.light
                 : Brightness.dark),
-        ref.read));
+        ref));
 
 class ThemeNotifier extends StateNotifier<ThemeData> {
-  final Reader read;
-  ThemeNotifier(ThemeData state, this.read) : super(state);
+  final Ref ref;
+  ThemeNotifier(ThemeData state, this.ref) : super(state);
   void switchTheme() {
     state.brightness == Brightness.light
         ? _setTheme(Brightness.dark)
@@ -20,7 +20,8 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
   }
 
   void _setTheme(Brightness brightness) {
-    read(localPreferencesDataSourceProvider)
+    ref
+        .read(localPreferencesDataSourceProvider)
         .saveTema(brightness == Brightness.light);
     state = _buildGomacTheme(brightness);
   }
@@ -76,11 +77,56 @@ ThemeData _buildGomacTheme(Brightness brightness) {
       brightness: brightness,
       backgroundColor: Colors.grey,
     ),
-    toggleableActiveColor: primaryColor,
     inputDecorationTheme: const InputDecorationTheme(
       filled: true,
     ),
-    textTheme: const TextTheme(headline6: TextStyle(color: Colors.grey)),
+    textTheme: const TextTheme(titleLarge: TextStyle(color: Colors.grey)),
+    checkboxTheme: CheckboxThemeData(
+      fillColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return null;
+        }
+        if (states.contains(MaterialState.selected)) {
+          return primaryColor;
+        }
+        return null;
+      }),
+    ),
+    radioTheme: RadioThemeData(
+      fillColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return null;
+        }
+        if (states.contains(MaterialState.selected)) {
+          return primaryColor;
+        }
+        return null;
+      }),
+    ),
+    switchTheme: SwitchThemeData(
+      thumbColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return null;
+        }
+        if (states.contains(MaterialState.selected)) {
+          return primaryColor;
+        }
+        return null;
+      }),
+      trackColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+        if (states.contains(MaterialState.disabled)) {
+          return null;
+        }
+        if (states.contains(MaterialState.selected)) {
+          return primaryColor;
+        }
+        return null;
+      }),
+    ),
   );
 }
 
@@ -119,7 +165,7 @@ ThemeData _buildGomacThemeFromBase(Brightness brightness) {
     scaffoldBackgroundColor: const Color.fromRGBO(114, 163, 141, 1),
     visualDensity: VisualDensity.compact,
     textTheme: baseTheme.textTheme.copyWith(
-      headline1: baseTheme.textTheme.headline1?.copyWith(
+      displayLarge: baseTheme.textTheme.displayLarge?.copyWith(
           fontSize: 20, fontWeight: FontWeight.bold, letterSpacing: 1.25),
     ),
     /*inputDecorationTheme: theme.inputDecorationTheme.copyWith(

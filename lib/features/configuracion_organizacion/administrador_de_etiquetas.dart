@@ -300,7 +300,6 @@ class CreacionDeEtiquetaDialog extends ConsumerWidget {
           ReactiveFormConsumer(
             builder: (context, form, child) {
               return TextButton(
-                child: const Text("agregar"),
                 onPressed: !form.valid
                     ? null
                     : () {
@@ -309,6 +308,7 @@ class CreacionDeEtiquetaDialog extends ConsumerWidget {
                               viewModel.jerarquiaControl.value!),
                         );
                       },
+                child: const Text("agregar"),
               );
             },
           ),
@@ -359,13 +359,13 @@ class CreacionDeNivelesDialog extends HookConsumerWidget {
         children: [
           Text(
             "Por favor agregue todos los niveles que tiene la jerarquía, por favor no use nombres de niveles que ya existan en otra etiqueta",
-            style: Theme.of(context).textTheme.caption,
+            style: Theme.of(context).textTheme.bodySmall,
           ),
           Text(
             "Importante: No se pueden modificar los niveles una vez creados",
             style: Theme.of(context)
                 .textTheme
-                .overline
+                .labelSmall
                 ?.copyWith(color: Colors.red),
           ),
           Flexible(
@@ -387,13 +387,14 @@ class CreacionDeNivelesDialog extends HookConsumerWidget {
                       children: [
                         Expanded(
                           child: ReactiveTextField(
-                            formControl: viewModel.nuevoNivelControl,
-                            decoration: const InputDecoration(
-                              labelText: "nuevo nivel",
-                            ),
-                            showErrors: (_) => false,
-                            onEditingComplete: viewModel.agregarNivel,
-                          ),
+                              formControl: viewModel.nuevoNivelControl,
+                              decoration: const InputDecoration(
+                                labelText: "nuevo nivel",
+                              ),
+                              showErrors: (_) => false,
+                              onEditingComplete: (val) {
+                                viewModel.agregarNivel.call();
+                              }),
                         ),
                         IconButton(
                           icon: const Icon(Icons.add),
@@ -480,11 +481,11 @@ class CreacionDeArbolDeEtiquetasDialog extends HookConsumerWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              (readOnly ? "" : "Por favor agregue cada " + clave) +
+              (readOnly ? "" : "Por favor agregue cada $clave") +
                   (valorPadre != null
                       ? " para el ${niveles[profundidad - 1]} $valorPadre"
                       : ""),
-              style: Theme.of(context).textTheme.caption,
+              style: Theme.of(context).textTheme.bodySmall,
             ),
             Flexible(
               child: Scrollbar(
@@ -501,15 +502,16 @@ class CreacionDeArbolDeEtiquetasDialog extends HookConsumerWidget {
                           children: [
                             Expanded(
                               child: ReactiveTextField(
-                                formControl: viewModel.nuevoValorControl,
-                                decoration: InputDecoration(
-                                  labelText: clave,
-                                ),
-                                showErrors: (c) =>
-                                    c.hasErrors &&
-                                    !c.hasError(ValidationMessage.required),
-                                onEditingComplete: viewModel.agregarValor,
-                              ),
+                                  formControl: viewModel.nuevoValorControl,
+                                  decoration: InputDecoration(
+                                    labelText: clave,
+                                  ),
+                                  showErrors: (c) =>
+                                      c.hasErrors &&
+                                      !c.hasError(ValidationMessage.required),
+                                  onEditingComplete: (val) {
+                                    viewModel.agregarValor.call();
+                                  }),
                             ),
                             IconButton(
                               icon: const Icon(Icons.add),
@@ -542,7 +544,7 @@ class CreacionDeArbolDeEtiquetasDialog extends HookConsumerWidget {
         decoration: InputDecoration(
           labelText: clave,
         ),
-        onSubmitted: () => viewModel.finalizarEdicion(valor),
+        onSubmitted: (_) => viewModel.finalizarEdicion.call(valor),
       ),
       trailing: IconButton(
         icon: const Icon(Icons.check),
@@ -634,7 +636,7 @@ class EtiquetaEnJerarquiaConController {
 class ArbolDeEtiquetasViewModel
     extends StateNotifier<IList<EtiquetaEnJerarquiaConController>> {
   late final nuevoValorControl =
-      fb.control("", [Validators.required, _noSeRepiteValidator]);
+      fb.control("", [Validators.required, NoSeRepiteValidator(state)]);
 
   ArbolDeEtiquetasViewModel(List<EtiquetaEnJerarquia> valoresIniciales)
       : super(IList.from(
@@ -678,7 +680,23 @@ class ArbolDeEtiquetasViewModel
     valor.nombreControl!.dispose();
   }
 
-  Map<String, dynamic>? _noSeRepiteValidator(AbstractControl<dynamic> control) {
+  @override
+  void dispose() {
+    nuevoValorControl.dispose();
+    for (final etiqueta in state.toIterable()) {
+      etiqueta.nombreControl?.dispose();
+    }
+    super.dispose();
+  }
+}
+
+/// Validator that validates the control's value must be `true`.
+class NoSeRepiteValidator<T> extends Validator<dynamic> {
+  const NoSeRepiteValidator(this.state) : super();
+  final IList<EtiquetaEnJerarquiaConController> state;
+
+  @override
+  Map<String, dynamic>? validate(AbstractControl<dynamic> control) {
     final error = <String, dynamic>{'repetido': true};
 
     if (control.value == null) {
@@ -690,14 +708,5 @@ class ArbolDeEtiquetasViewModel
     }
 
     return null;
-  }
-
-  @override
-  void dispose() {
-    nuevoValorControl.dispose();
-    for (final etiqueta in state.toIterable()) {
-      etiqueta.nombreControl?.dispose();
-    }
-    super.dispose();
   }
 }

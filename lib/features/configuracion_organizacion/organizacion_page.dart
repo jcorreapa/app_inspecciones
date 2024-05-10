@@ -15,16 +15,16 @@ class OrganizacionPage extends HookConsumerWidget {
 
   @override
   Widget build(BuildContext context, ref) {
-    TabController _tabController =
+    TabController tabController =
         useTabController(initialLength: 4, initialIndex: 0);
     return AnimatedBuilder(
-      animation: _tabController,
+      animation: tabController,
       builder: (context, child) {
         return Scaffold(
           drawer: const UserDrawer(),
           appBar: AppBar(
             bottom: TabBar(
-              controller: _tabController,
+              controller: tabController,
               tabs: const [
                 Tab(icon: Icon(Icons.corporate_fare_outlined)),
                 Tab(icon: Icon(Icons.people_outline_outlined)),
@@ -35,11 +35,11 @@ class OrganizacionPage extends HookConsumerWidget {
             title: const Text('Organización'),
           ),
           body: child,
-          floatingActionButton: _buildFab(context, _tabController, ref),
+          floatingActionButton: _buildFab(context, tabController, ref),
         );
       },
       child: TabBarView(
-        controller: _tabController,
+        controller: tabController,
         children: const [
           OrganizacionProfilePage(),
           ListaDeInspectoresPage(),
@@ -57,7 +57,7 @@ class OrganizacionPage extends HookConsumerWidget {
         onPressed: () =>
             ref.read(organizacionRepositoryProvider).getMiOrganizacion().then(
                   (r) => r.map((o) => context.goNamed("registro",
-                      queryParams: {"org": o.id.toString()})),
+                      queryParameters: {"org": o.id.toString()})),
                 ),
         label: const Text("Registrar"),
         icon: const Icon(Icons.how_to_reg_outlined),

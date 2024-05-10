@@ -95,9 +95,9 @@ class Database extends _$Database {
 }
 
 // extension method usado para obtener el valor de un atributo de un companion
-extension DefaultGetter<T> on Value<T> {
+extension DefaultGetter<T> on Value<T?> {
   T valueOrDefault(T def) {
-    return present ? value : def;
+    return present ? value! : def;
   }
 
   T? valueOrNull() {

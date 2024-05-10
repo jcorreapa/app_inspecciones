@@ -92,8 +92,9 @@ class _ListCuestionario extends StatelessWidget {
                   children: [
                     ReactiveDropdownField<String?>(
                       formControl: controller.tipoDeInspeccionControl,
-                      validationMessages: (control) => {
-                        ValidationMessage.required: 'Este valor es requerido'
+                      validationMessages: {
+                        ValidationMessage.required: (control) =>
+                            'Este valor es requerido'
                       },
                       items: controller.todosLosTiposDeInspeccion
                           .map((e) => DropdownMenuItem<String>(
@@ -104,7 +105,7 @@ class _ListCuestionario extends StatelessWidget {
                       decoration: const InputDecoration(
                         labelText: 'Seleccione el tipo de inspeccion',
                       ),
-                      onTap: () {
+                      onTap: (_) {
                         FocusScope.of(context)
                             .unfocus(); // para que no salte el teclado si tenia un textfield seleccionado
                       },
@@ -121,8 +122,8 @@ class _ListCuestionario extends StatelessWidget {
                             return ReactiveTextField(
                               formControl:
                                   controller.nuevoTipoDeInspeccionControl,
-                              validationMessages: (control) => {
-                                ValidationMessage.required:
+                              validationMessages: {
+                                ValidationMessage.required: (control) =>
                                     'Este valor es requerido'
                               },
                               decoration: const InputDecoration(
@@ -148,8 +149,8 @@ class _ListCuestionario extends StatelessWidget {
                   return ReactiveTextFieldTags(
                     decoration: const InputDecoration(labelText: "etiquetas"),
                     formControl: controller.etiquetasControl,
-                    validationMessages: (control) => {
-                      ValidationMessage.minLength:
+                    validationMessages: {
+                      ValidationMessage.minLength: (control) =>
                           'Se requiere al menos una etiqueta'
                     },
                     optionsBuilder: (TextEditingValue val) => controller

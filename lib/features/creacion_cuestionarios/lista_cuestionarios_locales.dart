@@ -195,7 +195,7 @@ class ListaCuestionariosLocales extends ConsumerWidget {
   ) =>
       context.goNamed(
         'inspeccion',
-        params: {
+        pathParameters: {
           "activoid": "previsualizacion",
           "cuestionarioid": cuestionario.id,
         },

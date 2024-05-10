@@ -6,13 +6,13 @@ import 'package:inspecciones/infrastructure/repositories/providers.dart';
 import 'package:reactive_forms/reactive_forms.dart';
 
 final registroUsuarioProvider = Provider.autoDispose((ref) {
-  final control = RegistroUsuarioControl(ref.read);
+  final control = RegistroUsuarioControl(ref);
   ref.onDispose(control.dispose);
   return control;
 });
 
 class RegistroUsuarioControl {
-  final Reader _read;
+  final Ref _ref;
   final nombreControl = fb.control('', [Validators.required]);
   final apellidoControl = fb.control('');
   final emailControl = fb.control('', [Validators.required, Validators.email]);
@@ -25,7 +25,7 @@ class RegistroUsuarioControl {
 
   late final FormGroup control;
 
-  RegistroUsuarioControl(this._read) {
+  RegistroUsuarioControl(this._ref) {
     control = FormGroup({
       'nombre': nombreControl,
       'apellido': apellidoControl,
@@ -51,7 +51,7 @@ class RegistroUsuarioControl {
     try {
       onStart?.call();
 
-      final repo = _read(userRepositoryProvider);
+      final repo = _ref.read(userRepositoryProvider);
       final res = await repo.registrarUsuario(
         formulario: {
           ...control.value,

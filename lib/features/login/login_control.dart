@@ -6,13 +6,13 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 import 'credenciales.dart';
 
-final loginControlProvider = Provider((ref) => LoginControl(ref.read));
+final loginControlProvider = Provider((ref) => LoginControl(ref));
 
 /// View model para el login
 class LoginControl extends FormGroup {
-  final Reader _read;
-  AuthService get _authService => _read(authProvider.notifier);
-  LoginControl(this._read)
+  final Ref _ref;
+  AuthService get _authService => _ref.read(authProvider.notifier);
+  LoginControl(this._ref)
       : super({
           'usuario': fb.control('', [Validators.required]),
           'password': fb.control('', [Validators.required]),

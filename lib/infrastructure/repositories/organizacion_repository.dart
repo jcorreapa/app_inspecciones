@@ -13,14 +13,14 @@ import '../drift_database.dart' as drift;
 import '../utils/transformador_excepciones_api.dart';
 
 class OrganizacionRepository {
-  final Reader _read;
+  final Ref _ref;
 
   OrganizacionRemoteDataSource get _api =>
-      _read(organizacionRemoteDataSourceProvider);
+      _ref.read(organizacionRemoteDataSourceProvider);
 
-  drift.Database get _db => _read(drift.driftDatabaseProvider);
+  drift.Database get _db => _ref.read(drift.driftDatabaseProvider);
 
-  OrganizacionRepository(this._read);
+  OrganizacionRepository(this._ref);
 
   Future<void> syncOrganizacion() async {
     await refreshListaDeActivos();

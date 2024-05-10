@@ -17,12 +17,12 @@ import '../drift_database.dart' as drift;
 import '../utils/transformador_excepciones_api.dart';
 
 class InspeccionesRemoteRepository {
-  final Reader _read;
+  final Ref _ref;
   InspeccionesRemoteDataSource get _api =>
-      _read(inspeccionesRemoteDataSourceProvider);
-  drift.Database get _db => _read(drift.driftDatabaseProvider);
+      _ref.read(inspeccionesRemoteDataSourceProvider);
+  drift.Database get _db => _ref.read(drift.driftDatabaseProvider);
 
-  InspeccionesRemoteRepository(this._read);
+  InspeccionesRemoteRepository(this._ref);
 
   /// Descarga desde el servidor una inspección identificadada con [id] para
   ///  poder continuarla en la app.
@@ -109,7 +109,6 @@ class InspeccionesRemoteRepository {
       }
     }
 
-    
     final fotosPorSubir = fotos.where((f) => f is! RemoteImage).toList();
 
     final JsonMap resServer = fotosPorSubir.isEmpty

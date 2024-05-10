@@ -68,17 +68,17 @@ class CriticidadCard extends StatelessWidget {
               ExpansionTile(
                 title: Text(
                   'Criticidad de las respuestas',
-                  style: Theme.of(context).textTheme.headline6,
+                  style: Theme.of(context).textTheme.titleLarge,
                 ),
                 childrenPadding: const EdgeInsets.all(5.0),
                 children: [
                   Text(
                     'La criticidad de la respuesta está dada por rangos. Empiece con el menor rango posible hasta llegar al máximo.',
-                    style: Theme.of(context).textTheme.subtitle1,
+                    style: Theme.of(context).textTheme.titleMedium,
                   ),
                   RichText(
                     text: TextSpan(
-                      style: Theme.of(context).textTheme.subtitle1,
+                      style: Theme.of(context).textTheme.titleMedium,
                       children: const <TextSpan>[
                         TextSpan(
                             text: 'Por ejemplo:',
@@ -117,8 +117,8 @@ class CriticidadCard extends StatelessWidget {
                               child: ReactiveTextField(
                                 keyboardType: TextInputType.number,
                                 formControl: controlCriticidad.minimoControl,
-                                validationMessages: (control) => {
-                                  ValidationMessage.required:
+                                validationMessages: {
+                                  ValidationMessage.required: (control) =>
                                       'Este valor es requerido'
                                 },
                                 decoration: const InputDecoration(
@@ -132,10 +132,11 @@ class CriticidadCard extends StatelessWidget {
                                 child: ReactiveTextField(
                                   keyboardType: TextInputType.number,
                                   formControl: controlCriticidad.maximoControl,
-                                  validationMessages: (control) => {
-                                    ValidationMessage.required:
+                                  validationMessages: {
+                                    ValidationMessage.required: (control) =>
                                         'Este valor es requerido',
-                                    'verificarRango': 'El valor debe ser mayor'
+                                    'verificarRango': (control) =>
+                                        'El valor debe ser mayor'
                                   },
                                   decoration: const InputDecoration(
                                     labelText: 'Valor Máximo',
@@ -172,9 +173,9 @@ class CriticidadCard extends StatelessWidget {
                 ),
               OutlinedButton(
                 onPressed: preguntaController.agregarCriticidad,
-                child: Row(
+                child: const Row(
                   mainAxisSize: MainAxisSize.min,
-                  children: const [
+                  children: [
                     Icon(Icons.add),
                     Text("Agregar Rango"),
                   ],

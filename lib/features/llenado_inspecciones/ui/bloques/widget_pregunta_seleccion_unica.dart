@@ -25,8 +25,8 @@ class WidgetPreguntaDeSeleccionUnica extends StatelessWidget {
               .map((e) => DropdownMenuItem(value: e, child: Text(e.titulo)))
               .toList(),
           formControl: controlador.respuestaEspecificaControl,
-          validationMessages: (control) => {
-            ValidationMessage.required: 'Seleccione una opción',
+          validationMessages: {
+            ValidationMessage.required: (control) => 'Seleccione una opción',
           },
         ),
         ReactiveValueListenableBuilder<OpcionDeRespuesta?>(

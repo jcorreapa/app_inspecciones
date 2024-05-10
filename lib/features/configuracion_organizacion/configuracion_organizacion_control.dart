@@ -11,14 +11,14 @@ import 'domain/entities.dart';
 final configuracionOrganizacionProvider = Provider.autoDispose
     .family<ConfiguracionOrganizacionControl, Organizacion?>((ref, org) {
   final control = ConfiguracionOrganizacionControl(
-    ref.read,
+    ref,
     organizacion: org,
   );
   return control;
 });
 
 class ConfiguracionOrganizacionControl {
-  final Reader _read;
+  final Ref _ref;
 
   /// si es null, la organizacion es nueva
   final Organizacion? organizacion;
@@ -33,7 +33,7 @@ class ConfiguracionOrganizacionControl {
 
   late final FormGroup control;
 
-  ConfiguracionOrganizacionControl(this._read, {this.organizacion}) {
+  ConfiguracionOrganizacionControl(this._ref, {this.organizacion}) {
     control = FormGroup({
       'nombre': nombreControl,
       'logo': logoControl,
@@ -51,7 +51,7 @@ class ConfiguracionOrganizacionControl {
     try {
       onStart?.call();
 
-      final repo = _read(organizacionRepositoryProvider);
+      final repo = _ref.read(organizacionRepositoryProvider);
 
       final Either<ApiFailure, Unit> res;
       if (organizacion == null) {

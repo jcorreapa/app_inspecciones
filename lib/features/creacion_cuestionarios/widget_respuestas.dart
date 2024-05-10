@@ -29,7 +29,7 @@ class WidgetRespuestas extends HookWidget {
             children: [
               Text(
                 'Respuestas',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
 
               /// Si no se ha añadido ninguna opción de respuesta
@@ -59,7 +59,7 @@ class WidgetRespuestas extends HookWidget {
                               tooltipDirection: TooltipDirection.right,
                               content: Text(
                                 "Seleccione si el inspector puede asignar una criticidad propia al elegir esta respuesta",
-                                style: Theme.of(context).textTheme.subtitle2,
+                                style: Theme.of(context).textTheme.titleSmall,
                               ),
                               ballonPadding: const EdgeInsets.all(2),
                               borderColor: Theme.of(context).primaryColor,
@@ -89,8 +89,8 @@ class WidgetRespuestas extends HookWidget {
                             Expanded(
                               child: ReactiveTextField(
                                 formControl: controlRespuesta.tituloControl,
-                                validationMessages: (control) => {
-                                  ValidationMessage.required:
+                                validationMessages: {
+                                  ValidationMessage.required: (control) =>
                                       'Este valor es requerido'
                                 },
                                 decoration: const InputDecoration(
@@ -141,9 +141,9 @@ class WidgetRespuestas extends HookWidget {
               if (formControl.enabled)
                 OutlinedButton(
                   onPressed: () => controlPregunta.agregarRespuesta(),
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(Icons.add),
                       Text("agregar respuesta"),
                     ],

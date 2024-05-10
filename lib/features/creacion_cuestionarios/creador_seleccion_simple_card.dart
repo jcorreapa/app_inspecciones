@@ -36,8 +36,9 @@ class CreadorSeleccionSimpleCard extends StatelessWidget {
               children: [
                 ReactiveDropdownField<TipoDePregunta>(
                   formControl: controller.tipoDePreguntaControl,
-                  validationMessages: (control) => {
-                    ValidationMessage.required: 'Seleccione el tipo de pregunta'
+                  validationMessages: {
+                    ValidationMessage.required: (control) =>
+                        'Seleccione el tipo de pregunta'
                   },
                   items: [
                     TipoDePregunta.seleccionUnica,
@@ -52,7 +53,7 @@ class CreadorSeleccionSimpleCard extends StatelessWidget {
                   decoration: const InputDecoration(
                     labelText: 'Tipo de pregunta',
                   ),
-                  onTap: () {
+                  onTap: (_) {
                     FocusScope.of(context)
                         .unfocus(); // para que no salte el teclado si tenia un textfield seleccionado
                   },

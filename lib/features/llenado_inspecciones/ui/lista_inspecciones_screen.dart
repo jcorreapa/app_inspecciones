@@ -54,7 +54,7 @@ class InspeccionesPage extends ConsumerWidget {
             return Center(
                 child: Text(
               "No tiene borradores sin terminar",
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
             ));
           }
 
@@ -74,7 +74,7 @@ class InspeccionesPage extends ConsumerWidget {
               return ListTile(
                 onTap: () => context.goNamed(
                   'inspeccion',
-                  params: {
+                  pathParameters: {
                     "activoid": borrador.inspeccion.activo.id,
                     "cuestionarioid": borrador.cuestionario.id.toString(),
                   },
@@ -83,7 +83,7 @@ class InspeccionesPage extends ConsumerWidget {
                 tileColor: Theme.of(context).cardColor,
                 title: Text(
                     "${borrador.inspeccion.activo.id} - ${borrador.inspeccion.activo.etiquetas.join(", ")} (${borrador.cuestionario.tipoDeInspeccion})",
-                    style: Theme.of(context).textTheme.subtitle1),
+                    style: Theme.of(context).textTheme.titleMedium),
                 subtitle: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -157,7 +157,7 @@ class InspeccionesPage extends ConsumerWidget {
               barrierDismissible: false,
               builder: (BuildContext context) {
                 return AlertDialog(
-                  contentTextStyle: Theme.of(context).textTheme.headline5,
+                  contentTextStyle: Theme.of(context).textTheme.headlineSmall,
                   title: const Icon(Icons.done_sharp,
                       size: 100, color: Colors.green),
                   actions: [

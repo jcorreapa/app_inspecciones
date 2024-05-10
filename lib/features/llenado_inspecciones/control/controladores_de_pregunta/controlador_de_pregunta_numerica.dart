@@ -12,7 +12,7 @@ class ControladorDePreguntaNumerica
   @override
   late final respuestaEspecificaControl = fb.control(
       pregunta.respuesta?.respuestaNumerica,
-      [DoubleValidator().validate, Validators.required]);
+      [DoubleValidator(), Validators.required]);
 
   ControladorDePreguntaNumerica(
       PreguntaNumerica pregunta, ControladorLlenadoInspeccion controlInspeccion)

@@ -164,7 +164,7 @@ class CreacionFormController {
         )*/
       ],
       validators: [
-        nuevoTipoDeInspeccionValidator(
+        NuevoTipoDeInspeccionValidator(
             tipoDeInspeccionControl, nuevoTipoDeInspeccionControl)
       ],
     );

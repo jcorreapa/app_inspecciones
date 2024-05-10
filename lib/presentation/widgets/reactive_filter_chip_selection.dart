@@ -11,7 +11,7 @@ class ReactiveFilterChipSelection<ModelDataType, ViewDataType>
     Key? key,
     String? formControlName,
     FormControl<List<ModelDataType>>? formControl,
-    ValidationMessagesFunction<List<ModelDataType>>? validationMessages,
+    Map<String, String Function(Object)>? validationMessages,
     ControlValueAccessor<List<ModelDataType>, List<ViewDataType>>?
         valueAccessor,
     ShowErrorsFunction? showErrors,

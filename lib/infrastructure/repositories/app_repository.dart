@@ -10,13 +10,13 @@ import '../drift_database.dart';
 import '../utils/transformador_excepciones_api.dart';
 
 class AppRepository {
-  final Reader _read;
-  AuthRemoteDataSource get _api => _read(authRemoteDataSourceProvider);
-  Database get _db => _read(driftDatabaseProvider);
+  final Ref _ref;
+  AuthRemoteDataSource get _api => _ref.read(authRemoteDataSourceProvider);
+  Database get _db => _ref.read(driftDatabaseProvider);
   LocalPreferencesDataSource get _localPreferences =>
-      _read(localPreferencesDataSourceProvider);
+      _ref.read(localPreferencesDataSourceProvider);
 
-  AppRepository(this._read);
+  AppRepository(this._ref);
 
   Future<void> limpiarDatosLocales() => _db.recrearTodasLasTablas();
 

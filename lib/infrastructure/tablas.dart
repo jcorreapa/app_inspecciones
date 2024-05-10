@@ -117,6 +117,7 @@ enum TipoDePregunta {
   seleccionMultiple,
   numerica,
 }
+
 enum TipoDeCuadricula {
   seleccionUnica,
   seleccionMultiple,
@@ -282,7 +283,7 @@ class _ListImagesToTextConverter
     extends NullAwareTypeConverter<List<AppImage>, String> {
   const _ListImagesToTextConverter();
   @override
-  List<AppImage> requireMapToDart(fromDb) {
+  List<AppImage> requireFromSql(fromDb) {
     return (json.decode(fromDb) as List)
         .cast<String>()
         .map((p) => p.startsWith("http")
@@ -294,10 +295,10 @@ class _ListImagesToTextConverter
   }
 
   @override
-  String requireMapToSql(value) {
+  String requireToSql(value) {
     return json.encode(value
         .map((i) => i.when(
-              remote: (id, url) => url + "#" + id,
+              remote: (id, url) => "$url#$id",
               mobile: (p) => p,
               web: (p) => p,
             ))
@@ -311,7 +312,13 @@ class _JsonToTextConverter extends NullAwareTypeConverter<dynamic, String> {
   dynamic requireMapToDart(fromDb) => json.decode(fromDb);
 
   @override
-  String requireMapToSql(value) => json.encode(value);
+  String requireToSql(value) => json.encode(value);
+
+  @override
+  requireFromSql(String fromDb) {
+    // TODO: implement requireFromSql
+    throw UnimplementedError();
+  }
 }
 
 class _EnumToStringConverter<T extends Enum>
@@ -323,5 +330,11 @@ class _EnumToStringConverter<T extends Enum>
   T requireMapToDart(fromDb) => EnumToString.fromString(enumValues, fromDb)!;
 
   @override
-  String requireMapToSql(value) => EnumToString.convertToString(value);
+  String requireToSql(value) => EnumToString.convertToString(value);
+
+  @override
+  T requireFromSql(String fromDb) {
+    // TODO: implement requireFromSql
+    throw UnimplementedError();
+  }
 }

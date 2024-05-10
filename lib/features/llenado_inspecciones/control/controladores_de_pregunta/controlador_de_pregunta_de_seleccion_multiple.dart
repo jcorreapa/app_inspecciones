@@ -19,7 +19,7 @@ class ControladorDePreguntaDeSeleccionMultiple
   @override
   late final FormArray respuestaEspecificaControl = fb.array(
       controladoresPreguntas.map((c) => c.control).toList(),
-      [MultipleValidator().validate]);
+      [MultipleValidator()]);
 
   ControladorDePreguntaDeSeleccionMultiple(PreguntaDeSeleccionMultiple pregunta,
       ControladorLlenadoInspeccion controlInspeccion)

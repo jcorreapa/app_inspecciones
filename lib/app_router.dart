@@ -50,8 +50,8 @@ final goRouterProvider = Provider((ref) => GoRouter(
           name: 'inspeccion',
           builder: (context, state) => InspeccionPage(
             inspeccionId: IdentificadorDeInspeccion(
-              activo: state.params['activoid']!,
-              cuestionarioId: state.params['cuestionarioid']!,
+              activo: state.pathParameters['activoid']!,
+              cuestionarioId: state.pathParameters['cuestionarioid']!,
             ),
           ),
         ),
@@ -59,7 +59,7 @@ final goRouterProvider = Provider((ref) => GoRouter(
           path: '/registro',
           name: 'registro',
           builder: (context, state) => RegistroUsuarioPage(
-            organizacionId: int.parse(state.queryParams['org']!),
+            organizacionId: int.parse(state.uri.queryParameters['org']!),
           ),
         ),
         GoRoute(
@@ -70,16 +70,17 @@ final goRouterProvider = Provider((ref) => GoRouter(
       ],
 
       // redireccion automatica a la pantalla de login si el usuario no esta autenticado
-      redirect: (state) {
+      redirect: (context, state) {
         final autenticado = ref.read(authListenableProvider).loggedIn;
 
         final urlsNoProtegidas = ['/login', '/registro'];
-        final vaHaciaProtegida = !urlsNoProtegidas.contains(state.subloc);
-        final vaHaciaLogin = state.subloc == '/login';
+        final vaHaciaProtegida =
+            !urlsNoProtegidas.contains(state.matchedLocation);
+        final vaHaciaLogin = state.matchedLocation == '/login';
 
         // si el usuario no esta autenticado y va hacia una pagina protegida, se tiene que loguear primero
         if (!autenticado && vaHaciaProtegida) {
-          return '/login?from=${state.location}';
+          return '/login?from=${state.uri.toString()}';
         }
 
         // si el usuario esta autenticado y va hacia login, no se tiene que loguear otra vez

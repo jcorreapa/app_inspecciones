@@ -66,11 +66,11 @@ class ActivoEnListaConController {
 
 class ListaDeActivosViewModel
     extends StateNotifier<Set<ActivoEnListaConController>> {
-  final Reader _read;
+  final Ref _ref;
   OrganizacionRepository get _organizacionRepository =>
-      _read(organizacionRepositoryProvider);
+      _ref.read(organizacionRepositoryProvider);
 
-  ListaDeActivosViewModel(this._read, Set<ActivoEnLista> activos)
+  ListaDeActivosViewModel(this._ref, Set<ActivoEnLista> activos)
       : super(activos.map((a) => ActivoEnListaConController(a, null)).toSet());
 
   void agregarActivo() {
@@ -133,7 +133,7 @@ final _viewModelProvider = StateNotifierProvider.autoDispose.family<
     ListaDeActivosViewModel,
     Set<ActivoEnListaConController>,
     Set<ActivoEnLista>>((ref, lista) {
-  final viewModel = ListaDeActivosViewModel(ref.read, lista);
+  final viewModel = ListaDeActivosViewModel(ref, lista);
   ref.listen(agregarActivoProvider, (_, __) {
     viewModel.agregarActivo();
   });

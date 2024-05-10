@@ -15,8 +15,8 @@ class DjangoJsonApi
         CuestionariosRemoteDataSource,
         InspeccionesRemoteDataSource,
         OrganizacionRemoteDataSource {
-  final Reader _read;
-  DjangoJsonApiClient get _client => _read(djangoJsonApiClientProvider);
+  final Ref _ref;
+  DjangoJsonApiClient get _client => _ref.read(djangoJsonApiClientProvider);
   final Uri _apiUri;
 
   /// Repositorio que se comunica con la api de inspecciones en la uri [_apiUri].
@@ -25,7 +25,7 @@ class DjangoJsonApi
   /// Las excepciones lanzadas por todos los métodos de esta clase deberían ser
   /// unicamente los definidos en [core/errors.dart], aunque podrían pasar algunos
   /// otros inesperadamente.
-  DjangoJsonApi(this._read, this._apiUri);
+  DjangoJsonApi(this._ref, this._apiUri);
 
   /// Devuelve el token del usuario
   ///

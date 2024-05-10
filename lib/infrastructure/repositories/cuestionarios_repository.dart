@@ -19,12 +19,12 @@ import '../drift_database.dart';
 import '../utils/transformador_excepciones_api.dart';
 
 class CuestionariosRepository {
-  final Reader _read;
+  final Ref _ref;
   CuestionariosRemoteDataSource get _api =>
-      _read(cuestionariosRemoteDataSourceProvider);
-  Database get _db => _read(driftDatabaseProvider);
+      _ref.read(cuestionariosRemoteDataSourceProvider);
+  Database get _db => _ref.read(driftDatabaseProvider);
 
-  CuestionariosRepository(this._read);
+  CuestionariosRepository(this._ref);
 
   Future<Either<ApiFailure, List<Cuestionario>>>
       getListaDeCuestionariosServer() => apiExceptionToApiFailure(
@@ -219,17 +219,18 @@ class CuestionariosRepository {
   Future<Map<AppImage, String>> _subirFotos(
       CuestionarioCompleto cuestionarioCompleto) async {
     final fotos = <AppImage>[];
+    //TODO: revisar si esta bien usar el ?? para las fotos
     for (final bloque in cuestionarioCompleto.bloques) {
       if (bloque is TituloD) {
-        fotos.addAll(bloque.titulo.fotos);
+        fotos.addAll(bloque.titulo.fotos ?? []);
       } else if (bloque is PreguntaDeSeleccion) {
-        fotos.addAll(bloque.pregunta.fotosGuia);
+        fotos.addAll(bloque.pregunta.fotosGuia ?? []);
       } else if (bloque is PreguntaNumerica) {
-        fotos.addAll(bloque.pregunta.fotosGuia);
+        fotos.addAll(bloque.pregunta.fotosGuia ?? []);
       } else if (bloque is CuadriculaConPreguntasYConOpcionesDeRespuesta) {
-        fotos.addAll(bloque.cuadricula.pregunta.fotosGuia);
+        fotos.addAll(bloque.cuadricula.pregunta.fotosGuia ?? []);
         for (final pregunta in bloque.preguntas) {
-          fotos.addAll(pregunta.pregunta.fotosGuia);
+          fotos.addAll(pregunta.pregunta.fotosGuia ?? []);
         }
       } else {
         throw TaggedUnionError(bloque);
@@ -334,12 +335,14 @@ class CuestionarioSerializer {
         'id': titulo.id,
         'titulo': titulo.titulo,
         'descripcion': titulo.descripcion,
-        'fotos': _serializarFotos(titulo.fotos),
+        //TODO: revisar si es correcto el uso de ?? para las fotos
+        'fotos': _serializarFotos(titulo.fotos ?? []),
       };
     } else if (bloque is PreguntaDeSeleccion) {
       final res = _serializarPregunta(bloque);
       res['etiquetas'] = _serializarEtiquetasDePregunta(bloque.etiquetas);
-      res['fotos_guia'] = _serializarFotos(bloque.pregunta.fotosGuia);
+      //TODO: revisar si es correcto el uso de ?? para las fotos
+      res['fotos_guia'] = _serializarFotos(bloque.pregunta.fotosGuia ?? []);
       res['opciones_de_respuesta'] =
           _serializarOpcionesDeRespuesta(bloque.opcionesDeRespuesta);
       bloqueJson['pregunta'] = res;
@@ -354,7 +357,8 @@ class CuestionarioSerializer {
         'tipo_de_pregunta': _serializarEnum(pregunta.tipoDePregunta),
         'criticidades_numericas': _serializarCriticidades(bloque.criticidades),
         'etiquetas': _serializarEtiquetasDePregunta(bloque.etiquetas),
-        'fotos_guia': _serializarFotos(pregunta.fotosGuia),
+        //TODO: revisar si es correcto el uso de ?? para las fotos
+        'fotos_guia': _serializarFotos(pregunta.fotosGuia ?? []),
         'unidades': pregunta.unidades!,
       };
     } else if (bloque is CuadriculaConPreguntasYConOpcionesDeRespuesta) {
@@ -368,7 +372,8 @@ class CuestionarioSerializer {
         'descripcion': cuadricula.descripcion,
         'criticidad': cuadricula.criticidad,
         'etiquetas': _serializarEtiquetasDePregunta(etiquetas),
-        'fotos_guia': _serializarFotos(cuadricula.fotosGuia),
+        //TODO: revisar si es correcto el uso de ?? para las fotos
+        'fotos_guia': _serializarFotos(cuadricula.fotosGuia ?? []),
         'tipo_de_pregunta': _serializarEnum(cuadricula.tipoDePregunta),
         'tipo_de_cuadricula': _serializarEnum(cuadricula.tipoDeCuadricula),
         'opciones_de_respuesta':

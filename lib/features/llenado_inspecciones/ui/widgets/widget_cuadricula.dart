@@ -21,7 +21,7 @@ class WidgetCuadricula extends HookWidget {
     final scrollController = useScrollController();
     return Scrollbar(
       controller: scrollController,
-      isAlwaysShown: true,
+      thumbVisibility: true,
       child: SingleChildScrollView(
         controller: scrollController,
         scrollDirection: Axis.horizontal,
@@ -95,15 +95,15 @@ class WidgetCuadricula extends HookWidget {
           children: [
             Text(
               e.titulo,
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             Text(e.descripcion),
           ],
         ),
         actions: [
           TextButton(
-            child: const Text('Ok'),
             onPressed: scaffold.hideCurrentMaterialBanner,
+            child: const Text('Ok'),
           ),
         ],
       ),

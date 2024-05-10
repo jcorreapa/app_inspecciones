@@ -12,7 +12,7 @@ final apiUriProvider = Provider<Uri>(
     (ref) => throw Exception("no se ha designado la url de la Api"));
 
 final _djangoJsonApiProvider =
-    Provider((ref) => DjangoJsonApi(ref.read, ref.watch(apiUriProvider)));
+    Provider((ref) => DjangoJsonApi(ref, ref.watch(apiUriProvider)));
 
 final authRemoteDataSourceProvider =
     Provider<AuthRemoteDataSource>((ref) => ref.watch(_djangoJsonApiProvider));

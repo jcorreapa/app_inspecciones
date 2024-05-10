@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import 'package:reactive_forms/reactive_forms.dart';
 
 import 'creacion_controls.dart';
@@ -16,18 +15,20 @@ class CreadorTituloCard extends StatelessWidget {
     return Card(
       //TODO: destacar mejor los titulos
       shape: RoundedRectangleBorder(
-          side:
-              BorderSide(color: Theme.of(context).backgroundColor, width: 2.0),
+          side: BorderSide(
+              color: Theme.of(context).colorScheme.background, width: 2.0),
           borderRadius: BorderRadius.circular(4.0)),
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           children: [
             ReactiveTextField(
-              style: Theme.of(context).textTheme.headline5,
+              style: Theme.of(context).textTheme.headlineSmall,
               formControl: controller.tituloControl,
-              validationMessages: (control) =>
-                  {ValidationMessage.required: 'El titulo no debe ser vacío'},
+              validationMessages: {
+                ValidationMessage.required: (control) =>
+                    'El titulo no debe ser vacío'
+              },
               decoration: const InputDecoration(
                 labelText: 'Titulo de sección',
               ),
@@ -35,7 +36,7 @@ class CreadorTituloCard extends StatelessWidget {
             ),
             const SizedBox(height: 10),
             ReactiveTextField(
-              style: Theme.of(context).textTheme.bodyText2,
+              style: Theme.of(context).textTheme.bodyMedium,
               formControl: controller.descripcionControl,
               decoration: const InputDecoration(
                 labelText: 'Descripción',

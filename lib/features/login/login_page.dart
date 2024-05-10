@@ -52,8 +52,9 @@ class _LoginForm extends ConsumerWidget {
           ),
           ReactiveTextField(
             textInputAction: TextInputAction.next,
-            validationMessages: (control) =>
-                {ValidationMessage.required: 'Ingrese el usuario'},
+            validationMessages: {
+              ValidationMessage.required: (control) => 'Ingrese el usuario'
+            },
             formControlName: 'usuario',
             decoration: const InputDecoration(
               labelText: 'Usuario',
@@ -63,8 +64,9 @@ class _LoginForm extends ConsumerWidget {
           const SizedBox(height: 10),
           ReactiveTextField(
             textInputAction: TextInputAction.done,
-            validationMessages: (control) =>
-                {ValidationMessage.required: 'Ingrese la contraseña'},
+            validationMessages: {
+              ValidationMessage.required: (control) => 'Ingrese la contraseña'
+            },
             formControlName: 'password',
             obscureText: true,
             decoration: const InputDecoration(
@@ -164,8 +166,8 @@ class _LoginForm extends ConsumerWidget {
               onPressed: () => Navigator.of(context).pop(),
             ),
             TextButton(
-              child: const Text("Continuar"),
               onPressed: onContinuar,
+              child: const Text("Continuar"),
             ),
           ],
         ),

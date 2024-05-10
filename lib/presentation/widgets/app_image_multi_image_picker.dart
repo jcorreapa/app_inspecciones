@@ -4,7 +4,6 @@ import 'package:cross_file/cross_file.dart';
 import 'package:flutter/material.dart';
 import 'package:inspecciones/core/entities/app_image.dart';
 import 'package:reactive_forms/reactive_forms.dart';
-import 'package:reactive_multi_image_picker/reactive_multi_image_picker.dart';
 
 class AppImageMultiImagePicker extends StatelessWidget {
   final FormControl<List<AppImage>> formControl;
@@ -19,14 +18,16 @@ class AppImageMultiImagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveMultiImagePicker<AppImage, AppImage>(
+    //TODO: revisar
+    return const Text(
+        'Hola'); /* ReactiveMultiImagePicker<AppImage, AppImage>(
       formControl: formControl,
       //valueAccessor: FileValueAccessor(),
       decoration: InputDecoration(labelText: label, border: InputBorder.none),
       maxImages: maxImages,
       imageBuilder: _appImageBuilder,
       xFileConverter: _xFileConverter,
-    );
+    ); */
   }
 }
 
@@ -40,12 +41,14 @@ class AppImageImagePicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return ReactiveImagePicker<AppImage?, AppImage>(
+    //TODO: revisar
+    return const Text(
+        'Hola'); /* ReactiveImagePicker<AppImage?, AppImage>(
       formControl: formControl,
       decoration: InputDecoration(labelText: label, border: InputBorder.none),
       imageBuilder: _appImageBuilder,
       xFileConverter: _xFileConverter,
-    );
+    ); */
   }
 }
 

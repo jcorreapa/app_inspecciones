@@ -23,8 +23,7 @@ part 'auth_state.dart';
 
 /// Maneja el estado de autenticación en la app
 final StateNotifierProvider<AuthService, AuthState> authProvider =
-    StateNotifierProvider<AuthService, AuthState>(
-        (ref) => AuthService(ref.read));
+    StateNotifierProvider<AuthService, AuthState>((ref) => AuthService(ref));
 
 final authListenableProvider = ChangeNotifierProvider(
     (ref) => LoginInfo(ref.watch(authProvider.notifier)));
@@ -61,15 +60,15 @@ class LoginInfo extends ChangeNotifier {
 }
 
 class AuthService extends StateNotifier<AuthState> {
-  final Reader _read;
-  UserRepository get _userRepository => _read(userRepositoryProvider);
-  AppRepository get _appRepository => _read(appRepositoryProvider);
-  AuthRemoteDataSource get _api => _read(authRemoteDataSourceProvider);
+  final Ref _ref;
+  UserRepository get _userRepository => _ref.read(userRepositoryProvider);
+  AppRepository get _appRepository => _ref.read(appRepositoryProvider);
+  AuthRemoteDataSource get _api => _ref.read(authRemoteDataSourceProvider);
 
   OrganizacionRepository get _organizacionRepository =>
-      _read(organizacionRepositoryProvider);
+      _ref.read(organizacionRepositoryProvider);
 
-  AuthService(this._read) : super(const AuthState.loading()) {
+  AuthService(this._ref) : super(const AuthState.loading()) {
     //TODO: eliminar duplicacion de codigo con login
     final usuario = _userRepository.getLocalUser();
 
@@ -91,12 +90,10 @@ class AuthService extends StateNotifier<AuthState> {
         // Guarda los datos del usuario, para que no tenga que iniciar sesión la próxima vez
         await _userRepository.saveLocalUser(user: usuario);
 
-        
-
         // para distinguir a los usuarios con Sentry
-        Sentry.configureScope(
-          (scope) => scope.user = SentryUser(id: usuario.username),
-        );
+        Sentry.configureScope((scope) => scope.setUser(
+              SentryUser(id: usuario.username),
+            ));
 
         // [AppRouter] escucha este evento y redirige al home
         state = AuthState.authenticated(usuario: usuario);
@@ -117,9 +114,9 @@ class AuthService extends StateNotifier<AuthState> {
         .flatMap(
       (usuario) async {
         await _userRepository.saveLocalUser(user: usuario);
-        Sentry.configureScope(
-          (scope) => scope.user = SentryUser(id: usuario.username),
-        );
+        Sentry.configureScope((scope) => scope.setUser(
+              SentryUser(id: usuario.username),
+            ));
         state = AuthState.authenticated(usuario: usuario);
         return const Right(unit);
       },
@@ -140,7 +137,7 @@ class AuthService extends StateNotifier<AuthState> {
   /// coinciden, obtiene y registra el token de la api.
   Future<Either<AuthFailure, Usuario>> authenticateUser(
       Credenciales credenciales) async {
-    final hayInternet = await _read(connectivityProvider.future);
+    final hayInternet = await _ref.read(connectivityProvider.future);
     if (!hayInternet) {
       return const Left(AuthFailure.noHayInternet());
     }
@@ -170,10 +167,8 @@ class AuthService extends StateNotifier<AuthState> {
     /// Se borra la info del usuario, lo que hace que deba iniciar sesión la próxima vez
     await _userRepository.deleteLocalUser();
 
-    Sentry.configureScope(
-      (scope) =>
-          scope.user = scope.user?.copyWith(extras: {'logged_out': true}),
-    );
+    Sentry.configureScope((scope) =>
+        scope.setUser(scope.user?.copyWith(data: {'logged_out': true})));
     state = const AuthState.unauthenticated();
     await _appRepository.guardarToken(null);
   }

@@ -28,8 +28,10 @@ class CreadorCuadriculaCard extends StatelessWidget {
           const SizedBox(height: 10),
           ReactiveDropdownField<TipoDePregunta>(
             formControl: controller.tipoDePreguntaControl,
-            validationMessages: (control) =>
-                {ValidationMessage.required: 'Seleccione el tipo de pregunta'},
+            validationMessages: {
+              ValidationMessage.required: (control) =>
+                  'Seleccione el tipo de pregunta'
+            },
             items: [
               TipoDePregunta.seleccionUnica,
               TipoDePregunta.seleccionMultiple
@@ -43,7 +45,7 @@ class CreadorCuadriculaCard extends StatelessWidget {
             decoration: const InputDecoration(
               labelText: 'Tipo de pregunta',
             ),
-            onTap: () {
+            onTap: (_) {
               FocusScope.of(context)
                   .unfocus(); // para que no salte el teclado si tenia un textfield seleccionado
             },
@@ -83,7 +85,7 @@ class WidgetPreguntas extends StatelessWidget {
             children: [
               Text(
                 'Preguntas',
-                style: Theme.of(context).textTheme.headline6,
+                style: Theme.of(context).textTheme.titleLarge,
               ),
               const SizedBox(height: 10),
               if (controllersPreguntas.isNotEmpty)
@@ -106,8 +108,8 @@ class WidgetPreguntas extends StatelessWidget {
                                     formControl: controllerPregunta
                                         .controllerCamposGenerales
                                         .tituloControl,
-                                    validationMessages: (control) => {
-                                      ValidationMessage.required:
+                                    validationMessages: {
+                                      ValidationMessage.required: (control) =>
                                           'Escriba el titulo'
                                     },
                                     decoration: const InputDecoration(
@@ -172,9 +174,9 @@ class WidgetPreguntas extends StatelessWidget {
               if (formControl.enabled)
                 OutlinedButton(
                   onPressed: controlCuadricula.agregarPregunta,
-                  child: Row(
+                  child: const Row(
                     mainAxisSize: MainAxisSize.min,
-                    children: const [
+                    children: [
                       Icon(Icons.add),
                       Text("Agregar pregunta"),
                     ],

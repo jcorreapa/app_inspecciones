@@ -35,7 +35,7 @@ final controladorLlenadoInspeccionProvider = FutureProvider.autoDispose
             .cargarInspeccionLocal(inspeccionId))
         .fold((l) => throw l, (r) => r), //TODO: mirar como manejar errores
     ref.watch(controladorFactoryProvider),
-    ref.read,
+    ref,
   );
   ref.onDispose(() {
     res.dispose();
@@ -51,11 +51,11 @@ enum FiltroPreguntas {
 
 class ControladorLlenadoInspeccion {
   InspeccionesRepository get repository =>
-      _read(inspeccionesRepositoryProvider);
+      _ref.read(inspeccionesRepositoryProvider);
   final ControladorFactory factory;
   final CuestionarioInspeccionado cuestionario;
 
-  final Reader _read;
+  final Ref _ref;
 
   late final List<ControladorDePregunta> controladores = cuestionario.bloques
       .whereType<Pregunta>()
@@ -106,7 +106,7 @@ class ControladorLlenadoInspeccion {
   ControladorLlenadoInspeccion(
     this.cuestionario,
     this.factory,
-    this._read,
+    this._ref,
   ) {
     if (cuestionario.inspeccion.estado == EstadoDeInspeccion.finalizada) {
       formArray.markAsDisabled();

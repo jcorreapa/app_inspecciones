@@ -81,8 +81,8 @@ class _ReparacionWidget extends HookWidget {
                       children: [
                         ReactiveTextField(
                           formControl: control.observacionReparacionControl,
-                          validationMessages: (control) => {
-                            ValidationMessage.required:
+                          validationMessages: {
+                            ValidationMessage.required: (control) =>
                                 'La observación es requerida'
                           },
                           decoration: const InputDecoration(

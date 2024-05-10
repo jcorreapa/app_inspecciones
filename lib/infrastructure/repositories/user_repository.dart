@@ -13,12 +13,12 @@ import '../utils/transformador_excepciones_api.dart';
 import 'providers.dart';
 
 class UserRepository {
-  final Reader _read;
-  AuthRemoteDataSource get _api => _read(authRemoteDataSourceProvider);
+  final Ref _ref;
+  AuthRemoteDataSource get _api => _ref.read(authRemoteDataSourceProvider);
   LocalPreferencesDataSource get _localPreferences =>
-      _read(localPreferencesDataSourceProvider);
+      _ref.read(localPreferencesDataSourceProvider);
 
-  UserRepository(this._read);
+  UserRepository(this._ref);
 
   Future<void> saveLocalUser({required Usuario user}) async {
     await _localPreferences.saveUser(user);
@@ -27,7 +27,8 @@ class UserRepository {
   /// Elimina user guardado localmente cuando se presiona cerrar sesión,
   /// el usuario deberá iniciar sesión la próxima vez que abra la app
   Future<void> deleteLocalUser() {
-    _read(appRepositoryProvider)
+    _ref
+        .read(appRepositoryProvider)
         .guardarToken(null); // esto puede que sea tarea de otra clase
     return _localPreferences.deleteUser();
   }

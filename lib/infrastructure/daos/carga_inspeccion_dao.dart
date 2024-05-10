@@ -130,7 +130,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
           Inspeccion inspeccion) async =>
       dominio.Inspeccion(
         id: inspeccion.id,
-        estado: inspeccion.estado,
+        //TODO: revisar si es correcto el uso de ?? para el estado
+        estado: inspeccion.estado ?? dominio.EstadoDeInspeccion.borrador,
         activo:
             await db.borradoresDao.buildActivo(activoId: inspeccion.activoId),
         momentoInicio: inspeccion.momentoInicio,
@@ -208,7 +209,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
         id: pregunta.id,
         titulo: pregunta.titulo,
         descripcion: pregunta.descripcion,
-        fotosGuia: pregunta.fotosGuia,
+        //TODO: revisar si es correcto el uso de ?? para las fotosGuia
+        fotosGuia: pregunta.fotosGuia ?? [],
         criticidad: pregunta.criticidad,
         etiquetas:
             etiquetas.map((e) => dominio.Etiqueta(e.clave, e.valor)).toList(),
@@ -266,7 +268,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
       id: pregunta.id,
       titulo: pregunta.titulo,
       descripcion: pregunta.descripcion,
-      fotosGuia: pregunta.fotosGuia,
+      //TODO: revisar si es correcto el uso de ?? para las fotosGuia
+      fotosGuia: pregunta.fotosGuia ?? [],
       criticidad: pregunta.criticidad,
       etiquetas:
           etiquetas.map((e) => dominio.Etiqueta(e.clave, e.valor)).toList(),
@@ -366,7 +369,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
             etiquetas.map((e) => dominio.Etiqueta(e.clave, e.valor)).toList(),
         titulo: pregunta.titulo,
         descripcion: pregunta.descripcion,
-        fotosGuia: pregunta.fotosGuia,
+        //TODO: revisar si es correcto el uso de ?? para las fotosGuia
+        fotosGuia: pregunta.fotosGuia ?? [],
         respuesta: respuesta == null
             ? null
             : dominio.RespuestaDeSeleccionMultiple(
@@ -445,7 +449,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
         id: cuadricula.id,
         titulo: cuadricula.titulo,
         descripcion: cuadricula.descripcion,
-        fotosGuia: cuadricula.fotosGuia,
+        //TODO: revisar si es correcto el uso de ?? para las fotosGuia
+        fotosGuia: cuadricula.fotosGuia ?? [],
         criticidad: cuadricula.criticidad,
         etiquetas:
             etiquetas.map((e) => dominio.Etiqueta(e.clave, e.valor)).toList(),
@@ -520,7 +525,8 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
         id: cuadricula.id,
         titulo: cuadricula.titulo,
         descripcion: cuadricula.descripcion,
-        fotosGuia: cuadricula.fotosGuia,
+        //TODO: revisar si es correcto el uso de ?? para las fotosGuia
+        fotosGuia: cuadricula.fotosGuia ?? [],
         criticidad: cuadricula.criticidad,
         etiquetas:
             etiquetas.map((e) => dominio.Etiqueta(e.clave, e.valor)).toList(),
@@ -591,8 +597,9 @@ class CargaDeInspeccionDao extends DatabaseAccessor<Database>
         observaciones: respuesta.observacion,
         reparada: respuesta.reparado,
         observacionesReparacion: respuesta.observacionReparacion,
-        fotosBase: respuesta.fotosBase,
-        fotosReparacion: respuesta.fotosReparacion,
+        //TODO: revisar si es correcto el uso de ?? para las fotosBase
+        fotosBase: respuesta.fotosBase ?? [],
+        fotosReparacion: respuesta.fotosReparacion ?? [],
         momentoRespuesta: respuesta.momentoRespuesta,
         criticidadDelInspector: respuesta.criticidadDelInspector,
         criticidadCalculada: respuesta

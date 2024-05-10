@@ -123,7 +123,7 @@ class _RegistroForm extends ConsumerWidget {
                             onSuccess: (username) =>
                                 _onSuccess(context, username),
                             onFailure: (failure) =>
-                                _onFailure(context, ref.read, failure),
+                                _onFailure(context, ref, failure),
                             organizacionId: organizacionId,
                           ),
                   child: isLoading
@@ -158,7 +158,7 @@ class _RegistroForm extends ConsumerWidget {
           ));
 
   Future<void> _onFailure(
-          BuildContext context, Reader read, ApiFailure failure) =>
+          BuildContext context, WidgetRef ref, ApiFailure failure) =>
       _mostrarError(context: context, mensaje: failure.mensaje);
 
   Future<void> _mostrarError(

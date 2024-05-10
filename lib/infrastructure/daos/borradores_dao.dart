@@ -55,7 +55,8 @@ class BorradoresDao extends DatabaseAccessor<Database>
             return dominio.Borrador(
               dominio.Inspeccion(
                 id: inspeccion.id,
-                estado: inspeccion.estado,
+                estado:
+                    inspeccion.estado ?? dominio.EstadoDeInspeccion.borrador,
                 activo: await buildActivo(activoId: inspeccion.activoId),
                 momentoInicio: inspeccion.momentoInicio,
                 momentoEnvio: inspeccion.momentoEnvio,
@@ -68,10 +69,12 @@ class BorradoresDao extends DatabaseAccessor<Database>
                 id: cuestionario.id,
                 tipoDeInspeccion: cuestionario.tipoDeInspeccion,
               ),
+              //TODO: mirar si puede ser 0
               totalPreguntas:
-                  await _calcNroPreguntas(cuestionarioId: cuestionario.id),
+                  await _calcNroPreguntas(cuestionarioId: cuestionario.id) ?? 0,
               avance: await _calcNroPreguntasRespondidas(
-                  inspeccionId: inspeccion.id),
+                      inspeccionId: inspeccion.id) ??
+                  0,
             );
           },
         ),
@@ -121,8 +124,9 @@ class BorradoresDao extends DatabaseAccessor<Database>
         .then((l) => l.fold<double>(0, (p, c) => p + (c ?? 0)));
   }
   */
+  //TODO: revisar si puede ser nulo y mirar si se puede poner no nulo
   /// Devuelve la cantidad total de preguntas que tiene el cuestionario con id=[cuestionarioId]
-  Future<int> _calcNroPreguntas({required String cuestionarioId}) {
+  Future<int?> _calcNroPreguntas({required String cuestionarioId}) {
     final count = countAll();
     final query = selectOnly(preguntas).join([
       innerJoin(bloques, bloques.id.equalsExp(preguntas.bloqueId)),
@@ -135,7 +139,9 @@ class BorradoresDao extends DatabaseAccessor<Database>
   /// Regresa el total de preguntas respondidas en una inspección con id=[id]
   /// (Se usa en la página de borradores para mostrar el avance)
   /// TODO: tener en cuenta las respuestas de tipo cuadricula y de seleccion multiple
-  Future<int> _calcNroPreguntasRespondidas(
+  ///
+  /// TODO: revisar si puede ser nulo y mirar si se puede poner no nulo
+  Future<int?> _calcNroPreguntasRespondidas(
       {required String inspeccionId}) async {
     final count = countAll();
     final query = selectOnly(respuestas)
@@ -159,8 +165,9 @@ class BorradoresDao extends DatabaseAccessor<Database>
   /// Elimina la inspección donde inspeccion.id = [borrador.inspeccion.id] y
   /// en cascada las respuestas asociadas
   Future<void> eliminarBorrador(dominio.Borrador borrador) async {
+    if (borrador.inspeccion.id == null) return;
     await (delete(inspecciones)
-          ..where((ins) => ins.id.equals(borrador.inspeccion.id)))
+          ..where((ins) => ins.id.equals(borrador.inspeccion.id!)))
         .go();
   }
 
