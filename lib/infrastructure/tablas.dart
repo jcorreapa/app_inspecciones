@@ -279,11 +279,10 @@ class Respuestas extends Table {
   Set<Column> get primaryKey => {id};
 }
 
-class _ListImagesToTextConverter
-    extends NullAwareTypeConverter<List<AppImage>, String> {
+class _ListImagesToTextConverter extends TypeConverter<List<AppImage>, String> {
   const _ListImagesToTextConverter();
   @override
-  List<AppImage> requireFromSql(fromDb) {
+  List<AppImage> fromSql(fromDb) {
     return (json.decode(fromDb) as List)
         .cast<String>()
         .map((p) => p.startsWith("http")
@@ -295,7 +294,7 @@ class _ListImagesToTextConverter
   }
 
   @override
-  String requireToSql(value) {
+  String toSql(value) {
     return json.encode(value
         .map((i) => i.when(
               remote: (id, url) => "$url#$id",
@@ -304,37 +303,26 @@ class _ListImagesToTextConverter
             ))
         .toList());
   }
+ 
 }
 
-class _JsonToTextConverter extends NullAwareTypeConverter<dynamic, String> {
+class _JsonToTextConverter extends TypeConverter<dynamic, String> {
   const _JsonToTextConverter();
-  @override
-  dynamic requireMapToDart(fromDb) => json.decode(fromDb);
 
   @override
-  String requireToSql(value) => json.encode(value);
+  fromSql(String fromDb) => json.decode(fromDb);
 
   @override
-  requireFromSql(String fromDb) {
-    // TODO: implement requireFromSql
-    throw UnimplementedError();
-  }
+  String toSql(value) => json.encode(value);
 }
 
-class _EnumToStringConverter<T extends Enum>
-    extends NullAwareTypeConverter<T, String> {
+class _EnumToStringConverter<T extends Enum> extends TypeConverter<T, String> {
   final List<T> enumValues;
   const _EnumToStringConverter(this.enumValues);
 
   @override
-  T requireMapToDart(fromDb) => EnumToString.fromString(enumValues, fromDb)!;
+  T fromSql(String fromDb) => EnumToString.fromString(enumValues, fromDb)!;
 
   @override
-  String requireToSql(value) => EnumToString.convertToString(value);
-
-  @override
-  T requireFromSql(String fromDb) {
-    // TODO: implement requireFromSql
-    throw UnimplementedError();
-  }
+  String toSql(T value) => EnumToString.convertToString(value);
 }

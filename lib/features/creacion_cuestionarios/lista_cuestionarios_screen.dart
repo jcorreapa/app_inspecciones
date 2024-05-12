@@ -20,7 +20,7 @@ final cuestionariosServidorProvider = FutureProvider.autoDispose((ref) =>
 /// Pantalla que muestra la lista de cuestionarios subidos y en proceso.
 /// TODO: boton para descargarlos todos
 class CuestionariosPage extends ConsumerWidget {
-  const CuestionariosPage({Key? key}) : super(key: key);
+  const CuestionariosPage({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -156,6 +156,8 @@ class CuestionariosPage extends ConsumerWidget {
                 },
               );
               break;
+            default:
+              return;
           }
         },
         itemBuilder: (BuildContext context) =>
