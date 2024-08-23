@@ -10,7 +10,7 @@ final borradoresDaoProvider = Provider.autoDispose(
 
 /// Vista con el historial de las inspecciones enviadas satisfactoriamente al servidor
 class HistoryInspeccionesPage extends ConsumerWidget {
-  const HistoryInspeccionesPage({Key? key}) : super(key: key);
+  const HistoryInspeccionesPage({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -51,7 +51,7 @@ class HistoryInspeccionesPage extends ConsumerWidget {
               return Center(
                   child: Text(
                 "No tiene inspecciones enviadas",
-                style: Theme.of(context).textTheme.headline5,
+                style: Theme.of(context).textTheme.headlineSmall,
               ));
             }
             return ListView.separated(
@@ -61,12 +61,12 @@ class HistoryInspeccionesPage extends ConsumerWidget {
               itemBuilder: (context, index) {
                 final borrador = borradoresHistorial[index];
 
-                final _dateSend = borrador.inspeccion.momentoEnvio;
+                final dateSend = borrador.inspeccion.momentoEnvio;
                 return ListTile(
                   tileColor: Theme.of(context).cardColor,
                   title: Text(
                     "${borrador.inspeccion.activo.id} - ${borrador.inspeccion.activo.etiquetas} (${borrador.cuestionario.tipoDeInspeccion})",
-                    style: textTheme.headline6,
+                    style: textTheme.titleLarge,
                   ),
                   subtitle: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -75,14 +75,14 @@ class HistoryInspeccionesPage extends ConsumerWidget {
                         height: 5,
                       ),
                       Text(
-                        _dateSend == null
+                        dateSend == null
                             ? "Fecha de envío: "
-                            : "Fecha de envío: ${_dateSend.day}/${_dateSend.month}/${_dateSend.year} ${_dateSend.hour}:${_dateSend.minute}",
-                        style: textTheme.subtitle1,
+                            : "Fecha de envío: ${dateSend.day}/${dateSend.month}/${dateSend.year} ${dateSend.hour}:${dateSend.minute}",
+                        style: textTheme.titleMedium,
                       ),
                       Text(
                         'Codigo de inspección: ${borrador.inspeccion.id}',
-                        style: textTheme.subtitle1,
+                        style: textTheme.titleMedium,
                       )
                     ],
                   ),

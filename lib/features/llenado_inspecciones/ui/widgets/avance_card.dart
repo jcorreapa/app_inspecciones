@@ -8,7 +8,7 @@ import '../../domain/inspeccion.dart';
 
 class AvanceCard extends HookWidget {
   final ControladorLlenadoInspeccion control;
-  const AvanceCard(this.control, {Key? key}) : super(key: key);
+  const AvanceCard(this.control, {super.key});
   @override
   Widget build(BuildContext context) {
     //TODO: arreglar la reactividad
@@ -29,7 +29,7 @@ class AvanceCard extends HookWidget {
                       .where((element) => element.valid)
                       .toList()
                       .length /
-                  value.controls.length;
+                  1 /* value.controls.length */;
               break;
             case EstadoDeInspeccion.enReparacion:
               avance = criticas == 0

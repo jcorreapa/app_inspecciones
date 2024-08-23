@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AyudaPosicion extends StatelessWidget {
-  const AyudaPosicion({Key? key}) : super(key: key);
+  const AyudaPosicion({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -49,16 +49,16 @@ class AyudaPosicion extends StatelessWidget {
                       const SizedBox(height: 3),
                       Text(
                         'Indica al inspector en qué lugar se encuentra el componente que se está inspeccionando en esta pregunta.',
-                        style: Theme.of(context).textTheme.subtitle1,
+                        style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(height: 5),
                       Text('- La posición Y indica el eje',
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyLarge),
                       Text('- La posición X indica el lado',
-                          style: Theme.of(context).textTheme.bodyText1),
+                          style: Theme.of(context).textTheme.bodyLarge),
                       Text(
                         '- La posición Z indica si está arriba, abajo o en el medio',
-                        style: Theme.of(context).textTheme.bodyText1,
+                        style: Theme.of(context).textTheme.bodyLarge,
                       ),
                     ],
                   ),

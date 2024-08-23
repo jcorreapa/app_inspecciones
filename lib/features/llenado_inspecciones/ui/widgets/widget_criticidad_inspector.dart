@@ -3,8 +3,7 @@ import 'package:reactive_forms/reactive_forms.dart';
 
 class WidgetCriticidadInspector extends StatelessWidget {
   final FormControl<int> criticidadInspectorControl;
-  const WidgetCriticidadInspector(this.criticidadInspectorControl, {Key? key})
-      : super(key: key);
+  const WidgetCriticidadInspector(this.criticidadInspectorControl, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +14,7 @@ class WidgetCriticidadInspector extends StatelessWidget {
         const SizedBox(height: 5),
         Text(
           'Asigne una criticidad dependiendo del estado de la falla',
-          style: Theme.of(context).textTheme.caption,
+          style: Theme.of(context).textTheme.bodySmall,
           textAlign: TextAlign.center,
         ),
         Row(
@@ -51,7 +50,7 @@ class WidgetCriticidadInspector extends StatelessWidget {
             ),
             content: Text(
               "Cada opción representa un porcentaje de la gravedad de la falla así:\n\n-Criticidad 1 representa el 55%\n-Criticidad 2 representa el 70%\n-Criticidad 3 representa el 80%\n-Criticidad 4 representa el 100%",
-              style: Theme.of(context).textTheme.subtitle1,
+              style: Theme.of(context).textTheme.titleMedium,
             ),
             actions: [
               TextButton(

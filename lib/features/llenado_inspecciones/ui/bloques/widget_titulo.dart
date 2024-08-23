@@ -6,8 +6,8 @@ class WidgetTitulo extends StatelessWidget {
   final Titulo titulo;
   const WidgetTitulo(
     this.titulo, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -20,14 +20,14 @@ class WidgetTitulo extends StatelessWidget {
             titulo.titulo,
             style: Theme.of(context)
                 .textTheme
-                .headline5
+                .headlineSmall
                 ?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
           ),
           subtitle: Text(
             titulo.descripcion,
             style: Theme.of(context)
                 .textTheme
-                .bodyText2
+                .bodyMedium
                 ?.copyWith(color: Theme.of(context).colorScheme.onSecondary),
           ),
         ),

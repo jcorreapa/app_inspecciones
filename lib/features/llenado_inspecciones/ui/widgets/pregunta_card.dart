@@ -11,12 +11,12 @@ class PreguntaCard extends StatelessWidget {
   final Widget child;
   final int nOrden;
   const PreguntaCard({
-    Key? key,
+    super.key,
     required this.nOrden,
     required this.pregunta,
     required this.controlador,
     required this.child,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +31,7 @@ class PreguntaCard extends StatelessWidget {
                 children: [
                   Text(
                     '$nOrden',
-                    style: Theme.of(context).textTheme.headline6,
+                    style: Theme.of(context).textTheme.titleLarge,
                   ),
                   const Icon(Icons.arrow_forward_ios),
                 ],
@@ -44,7 +44,7 @@ class PreguntaCard extends StatelessWidget {
                 alignment: Alignment.centerLeft,
                 child: Text(
                   "Etiquetas: ${pregunta.etiquetas.join(", ")}",
-                  style: Theme.of(context).textTheme.subtitle2,
+                  style: Theme.of(context).textTheme.titleSmall,
                 ),
               ),
             Padding(

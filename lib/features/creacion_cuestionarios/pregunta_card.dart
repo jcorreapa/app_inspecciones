@@ -5,10 +5,10 @@ class PreguntaCard extends StatelessWidget {
   final String titulo;
 
   const PreguntaCard({
-    Key? key,
+    super.key,
     required this.child,
     required this.titulo,
-  }) : super(key: key);
+  });
   @override
   Widget build(BuildContext context) {
     return Card(
@@ -19,7 +19,7 @@ class PreguntaCard extends StatelessWidget {
           children: [
             Text(
               titulo,
-              style: Theme.of(context).textTheme.headline6,
+              style: Theme.of(context).textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 10),

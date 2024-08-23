@@ -20,8 +20,7 @@ import 'widgets/icon_menu.dart';
 class InspeccionPage extends HookConsumerWidget {
   final IdentificadorDeInspeccion inspeccionId;
 
-  const InspeccionPage({Key? key, required this.inspeccionId})
-      : super(key: key);
+  const InspeccionPage({super.key, required this.inspeccionId});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -39,16 +38,15 @@ class InspeccionPage extends HookConsumerWidget {
               kIsWeb && ref.watch(showFABProvider);
 
           return Scaffold(
-            backgroundColor: Theme.of(context).backgroundColor,
+            backgroundColor: Theme.of(context).scaffoldBackgroundColor,
             drawer: const UserDrawer(),
             //TODO: mirar si es necesario deshabilitar el drawer mientras se está llenando una inspeccion
             appBar: AppBar(
               title: Text(
-                "Inspección " +
-                    EnumToString.convertToString(
-                      estadoDeInspeccion,
-                      camelCase: true,
-                    ).toLowerCase(),
+                "Inspección ${EnumToString.convertToString(
+                  estadoDeInspeccion,
+                  camelCase: true,
+                ).toLowerCase()}",
               ),
               backgroundColor:
                   estadoDeInspeccion == EstadoDeInspeccion.enReparacion
@@ -174,8 +172,8 @@ class DialogInformacionInspeccion extends HookWidget {
   final ControladorLlenadoInspeccion control;
   const DialogInformacionInspeccion(
     this.control, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

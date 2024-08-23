@@ -10,8 +10,8 @@ class WidgetCriticidad extends HookWidget {
 
   const WidgetCriticidad(
     this.control, {
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -32,16 +32,14 @@ class _WidgetCriticidad extends StatelessWidget {
   final int criticidad;
   final String mensajeCriticidad;
 
-  const _WidgetCriticidad.borrador({Key? key, required int criticidadPregunta})
+  const _WidgetCriticidad.borrador({super.key, required int criticidadPregunta})
       : criticidad = criticidadPregunta,
-        mensajeCriticidad = 'Criticidad pregunta',
-        super(key: key);
+        mensajeCriticidad = 'Criticidad pregunta';
 
   const _WidgetCriticidad.noBorrador(
-      {Key? key, required int criticidadCalculada})
+      {super.key, required int criticidadCalculada})
       : criticidad = criticidadCalculada,
-        mensajeCriticidad = 'Criticidad',
-        super(key: key);
+        mensajeCriticidad = 'Criticidad';
 
   @override
   Widget build(BuildContext context) => Row(
@@ -50,7 +48,7 @@ class _WidgetCriticidad extends StatelessWidget {
           criticidad > 0 ? _iconCritico : _iconNoCritico,
           Text(
             '$mensajeCriticidad: $criticidad',
-            style: Theme.of(context).textTheme.bodyText1,
+            style: Theme.of(context).textTheme.bodyLarge,
           ),
         ],
       );
