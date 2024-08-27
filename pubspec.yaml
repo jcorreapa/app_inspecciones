@@ -28,10 +28,9 @@ dependencies:
   android_path_provider: ^0.3.0
   reactive_forms: ^17.0.1
   hooks_riverpod: ^2.5.1
-  #reactive_multi_image_picker:
-    #git:
-      #url: https://github.com/victorcatn/reactive_multi_image_picker.git
-      #ref: multi_platform_support
+  reactive_multi_image_picker:
+    git:
+      url: https://github.com/jcorreapa/reactive_multi_image_picker
   rflutter_alert: ^2.0.7
   sentry_flutter: ^8.1.0
   shared_preferences: ^2.2.3
