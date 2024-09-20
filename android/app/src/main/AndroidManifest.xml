@@ -1,8 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.gomac.inspecciones">
    <application
-        android:label="Inspecciones"
-        android:icon="@mipmap/ic_launcher"
+        android:label="GEMA"
+        android:icon="@mipmap/launcher_icon"
         android:usesCleartextTraffic="true">
         <activity
             android:name=".MainActivity"

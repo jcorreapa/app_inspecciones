@@ -53,15 +53,18 @@ dev_dependencies:
   mockito: ^5.4.4
   
 
-flutter_icons:
-  image_path: "assets/images/logo-gomac.png"
-  android: true # can specify file name here e.g. "ic_launcher"
+flutter_launcher_icons:
+  android: "launcher_icon"
+  ios: true
+  image_path: "assets/images/logo-gema.png"
+  remove_alpha_ios: true
+
 
 flutter:
   uses-material-design: true
   assets:
-    - assets/images/logo-gomac.png
-    - assets/images/logo-gomac-texto.png
+    - assets/images/logo-gema.png
+    - assets/images/logo-gema-text.png
     - assets/images/Posicion.jpeg
     - assets/sqljs/sql-wasm.js # este archivo tiene una modificacion: se cambia "sql-wasm.wasm" por "assets/assets/sqljs/sql-wasm.wasm"
     - assets/sqljs/sql-wasm.wasm 

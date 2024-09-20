@@ -12,7 +12,7 @@ final themeProvider = StateNotifierProvider<ThemeNotifier, ThemeData>((ref) =>
 
 class ThemeNotifier extends StateNotifier<ThemeData> {
   final Ref ref;
-  ThemeNotifier(ThemeData state, this.ref) : super(state);
+  ThemeNotifier(super.state, this.ref);
   void switchTheme() {
     state.brightness == Brightness.light
         ? _setTheme(Brightness.dark)
@@ -27,106 +27,11 @@ class ThemeNotifier extends StateNotifier<ThemeData> {
   }
 }
 
-const MaterialColor gomacPrimaryColor = MaterialColor(
-  _gomacPrimaryValue,
-  <int, Color>{
-    50: Color(0xFFFFFFFF),
-    100: Color(0xFFadb2b9),
-    200: Color(0xFFd5d8db),
-    300: Color(0xFF868e97),
-    400: Color(0xFF203040),
-    500: Color(_gomacPrimaryValue),
-    600: Color.fromRGBO(28, 44, 59, .8),
-    700: Color.fromRGBO(28, 44, 59, .6),
-    800: Color.fromRGBO(28, 44, 59, .4),
-    900: Color.fromRGBO(28, 44, 59, .2),
-  },
-);
-
-const MaterialColor gomacSecondaryColor = MaterialColor(
-  _gomacSecondaryValue,
-  <int, Color>{
-    50: Color(0xFFfff3dc),
-    100: Color(0xFFffe6ba),
-    200: Color(0xFFffdb98),
-    300: Color(0xFFfccf76),
-    400: Color(0xFFf6c351),
-    500: Color(_gomacSecondaryValue),
-    600: Color(0xFFe1b03e),
-    700: Color(0xFFd4a000),
-    800: Color(0xFFe2ac0e),
-    900: Color(0xFFc69400),
-  },
-);
-const int _gomacPrimaryValue = 0xFF1c2c3b;
-const int _gomacSecondaryValue = 0xFFf0b823;
-
 ThemeData _buildGomacTheme(Brightness brightness) {
-  const color1 = gomacPrimaryColor;
-  const color2 = gomacSecondaryColor;
-  final primaryColor = brightness == Brightness.light ? color1 : color2;
-  final secondaryColor = brightness == Brightness.light ? color2 : color1;
-
   return ThemeData(
     brightness: brightness,
-    //primaryColor: primaryColor,
-    primarySwatch: primaryColor,
-    colorScheme: ColorScheme.fromSwatch(
-      primarySwatch: primaryColor,
-      accentColor: secondaryColor,
-      brightness: brightness,
-      backgroundColor: Colors.grey,
-    ),
-    inputDecorationTheme: const InputDecorationTheme(
-      filled: true,
-    ),
-    textTheme: const TextTheme(titleLarge: TextStyle(color: Colors.grey)),
-    checkboxTheme: CheckboxThemeData(
-      fillColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
-          return null;
-        }
-        if (states.contains(MaterialState.selected)) {
-          return primaryColor;
-        }
-        return null;
-      }),
-    ),
-    radioTheme: RadioThemeData(
-      fillColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
-          return null;
-        }
-        if (states.contains(MaterialState.selected)) {
-          return primaryColor;
-        }
-        return null;
-      }),
-    ),
-    switchTheme: SwitchThemeData(
-      thumbColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
-          return null;
-        }
-        if (states.contains(MaterialState.selected)) {
-          return primaryColor;
-        }
-        return null;
-      }),
-      trackColor: MaterialStateProperty.resolveWith<Color?>(
-          (Set<MaterialState> states) {
-        if (states.contains(MaterialState.disabled)) {
-          return null;
-        }
-        if (states.contains(MaterialState.selected)) {
-          return primaryColor;
-        }
-        return null;
-      }),
-    ),
+    colorScheme: ColorScheme.fromSeed(
+        seedColor: const Color(0xFF665c77), brightness: brightness),
   );
 }
 

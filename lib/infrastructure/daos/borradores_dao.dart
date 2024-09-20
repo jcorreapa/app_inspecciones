@@ -21,7 +21,7 @@ class BorradoresDao extends DatabaseAccessor<Database>
     with _$BorradoresDaoMixin {
   // this constructor is required so that the main database can create an instance
   // of this object.
-  BorradoresDao(Database db) : super(db);
+  BorradoresDao(super.db);
 
   /// Devuelve [List<Borrador>] con todas las inspecciones que han sido guardadas
   /// para mostrar en la UI en borradores_screen.dart

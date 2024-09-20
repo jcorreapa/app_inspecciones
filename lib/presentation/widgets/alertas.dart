@@ -13,7 +13,7 @@ void mostrarMensaje(BuildContext context, TipoDeMensaje tipo, String mensaje,
   Alert(
     context: context,
     style: AlertStyle(
-      overlayColor: Theme.of(context).primaryColorLight,
+      overlayColor: Theme.of(context).primaryColor,
       animationType: AnimationType.fromTop,
       isCloseButton: false,
       isOverlayTapDismiss: false,
@@ -29,7 +29,7 @@ void mostrarMensaje(BuildContext context, TipoDeMensaje tipo, String mensaje,
         ),
       ),
       titleStyle: const TextStyle(
-        color: Colors.white,
+        color: Colors.black,
       ),
     ),
     type: tipo == TipoDeMensaje.exito ? AlertType.success : AlertType.error,

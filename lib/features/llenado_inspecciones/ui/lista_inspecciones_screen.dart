@@ -17,7 +17,7 @@ import 'llenado_de_inspeccion_screen.dart';
 //TODO: Implementar que se puedan seleccionar varias inspecciones para eliminarlas.
 /// Pantalla con lista de todas las inspecciones pendientes por subir.
 class InspeccionesPage extends ConsumerWidget {
-  const InspeccionesPage({Key? key}) : super(key: key);
+  const InspeccionesPage({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -27,11 +27,11 @@ class InspeccionesPage extends ConsumerWidget {
         actions: [
           IconButton(
               icon: const Icon(Icons.history),
-              onPressed: () => context.goNamed("history")),
+              onPressed: () => context.pushNamed("history")),
           Padding(
             padding: const EdgeInsets.all(8.0),
             child: Image.asset(
-              "assets/images/logo-gomac.png",
+              "assets/images/logo-gema.png",
             ),
           ),
         ],
@@ -157,6 +157,7 @@ class InspeccionesPage extends ConsumerWidget {
               barrierDismissible: false,
               builder: (BuildContext context) {
                 return AlertDialog(
+                  backgroundColor: Theme.of(context).primaryColor,
                   contentTextStyle: Theme.of(context).textTheme.headlineSmall,
                   title: const Icon(Icons.done_sharp,
                       size: 100, color: Colors.green),
@@ -224,8 +225,8 @@ class InspeccionesPage extends ConsumerWidget {
 /// Botón de creación de inspecciones
 class FloatingActionButtonInicioInspeccion extends ConsumerWidget {
   const FloatingActionButtonInicioInspeccion({
-    Key? key,
-  }) : super(key: key);
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context, ref) {

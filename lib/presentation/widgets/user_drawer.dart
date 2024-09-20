@@ -8,7 +8,7 @@ import 'package:inspecciones/theme.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class UserDrawer extends ConsumerWidget {
-  const UserDrawer({Key? key}) : super(key: key);
+  const UserDrawer({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -43,19 +43,19 @@ class UserDrawer extends ConsumerWidget {
                     icon: Icons.list_alt_outlined,
                     onTap: () => context.goNamed("inspecciones"),
                   ),
-                  if (user.esAdmin)
-                    MenuItem(
-                      texto: 'Herramientas de desarrollador',
-                      icon: Icons.bug_report_outlined,
-                      onTap: () => _mostrarHerramientasDeDesarrollo(context),
-                    ),
-                  MenuItem(
-                    texto: 'Limpiar datos de la app',
-                    icon: Icons.cleaning_services_outlined,
-                    onTap: () => _mostrarConfirmacionLimpieza(
-                      context: context,
-                    ),
-                  ),
+                  // if (user.esAdmin)
+                  //   MenuItem(
+                  //     texto: 'Herramientas de desarrollador',
+                  //     icon: Icons.bug_report_outlined,
+                  //     onTap: () => _mostrarHerramientasDeDesarrollo(context),
+                  //   ),
+                  // MenuItem(
+                  //   texto: 'Limpiar datos de la app',
+                  //   icon: Icons.cleaning_services_outlined,
+                  //   onTap: () => _mostrarConfirmacionLimpieza(
+                  //     context: context,
+                  //   ),
+                  // ),
                   MenuItem(
                     texto: 'Cambiar el tema',
                     icon: Icons.dark_mode_outlined,
@@ -81,8 +81,10 @@ class MenuItem extends StatelessWidget {
   final IconData icon;
   final VoidCallback? onTap;
   const MenuItem(
-      {Key? key, required this.texto, required this.icon, required this.onTap})
-      : super(key: key);
+      {super.key,
+      required this.texto,
+      required this.icon,
+      required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +99,7 @@ class MenuItem extends StatelessWidget {
 }
 
 class AvatarCard extends ConsumerWidget {
-  const AvatarCard({Key? key}) : super(key: key);
+  const AvatarCard({super.key});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -105,11 +107,7 @@ class AvatarCard extends ConsumerWidget {
     if (user == null) return const Text("usuario no identificado");
     return UserAccountsDrawerHeader(
       accountName: Text(
-        (user.esAdmin ? "Administrador" : "Inspector") +
-            " - " +
-            user.map(online: (_) => "online", offline: (_) => "offline") +
-            " - " +
-            user.organizacion,
+        "${user.esAdmin ? "Administrador" : "Inspector"} - ${user.map(online: (_) => "online", offline: (_) => "offline")} - ${user.organizacion}",
       ),
       accountEmail: Text(
         /// Nombre de usuario
@@ -126,10 +124,10 @@ class AvatarCard extends ConsumerWidget {
       ),
       otherAccountsPictures: [
         GestureDetector(
-          child: Image.asset("assets/images/logo-gomac.png"),
+          child: Image.asset("assets/images/logo-gema.png"),
           onTap: () async {
-            const _url = 'https://gomac.medellin.unal.edu.co';
-            await canLaunch(_url) ? await launch(_url) : null;
+            const url = 'https://gomac.medellin.unal.edu.co';
+            await canLaunch(url) ? await launch(url) : null;
           },
         ),
       ],

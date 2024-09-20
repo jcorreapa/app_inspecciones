@@ -161,7 +161,7 @@ class InspeccionSerializer {
   JsonMap serializarInspeccion() => {
         'id': inspeccion.id,
         'cuestionario': cuestionario.id,
-        'activo': inspeccion.activo.id,
+        'activo': '00000000000000000000000000000001',
         'momento_inicio': inspeccion.momentoInicio.toUtc().toIso8601String(),
         'momento_finalizacion':
             inspeccion.momentoFinalizacion?.toUtc().toIso8601String(),

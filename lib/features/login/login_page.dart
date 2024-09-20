@@ -10,7 +10,7 @@ final _loadingProvider = StateProvider((ref) => false);
 
 class LoginPage extends StatelessWidget {
   final String? from;
-  const LoginPage({Key? key, this.from}) : super(key: key);
+  const LoginPage({super.key, this.from});
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +37,7 @@ class LoginPage extends StatelessWidget {
 
 class _LoginForm extends ConsumerWidget {
   final String? from;
-  const _LoginForm({Key? key, this.from}) : super(key: key);
+  const _LoginForm({super.key, this.from});
 
   @override
   Widget build(BuildContext context, ref) {
@@ -46,7 +46,7 @@ class _LoginForm extends ConsumerWidget {
       formGroup: form,
       child: Column(
         children: [
-          Image.asset("assets/images/logo-gomac-texto.png"),
+          Image.asset("assets/images/logo-gema-text.png"),
           const SizedBox(
             height: 15,
           ),

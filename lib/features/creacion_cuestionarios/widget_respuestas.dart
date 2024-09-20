@@ -115,7 +115,7 @@ class WidgetRespuestas extends HookWidget {
                         ReactiveTextField(
                           formControl: controlRespuesta.descripcionControl,
                           decoration: const InputDecoration(
-                            labelText: 'descripcion',
+                            labelText: 'Descripción',
                           ),
                           keyboardType: TextInputType.multiline,
                           maxLines: 3,
@@ -145,7 +145,7 @@ class WidgetRespuestas extends HookWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       Icon(Icons.add),
-                      Text("agregar respuesta"),
+                      Text("Agregar respuesta"),
                     ],
                   ),
                 ),
